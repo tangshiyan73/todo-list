@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <h1>To-Do List</h1>
+
+    <!-- Add/Edit task form. Reused for both add and edit — a hidden `editingId`
+         field tracks whether we're creating a new task or updating an existing one. -->
+    <form id="taskForm">
+      <input type="hidden" id="editingId" value="">
+      <input type="text" id="title" placeholder="Task title" required>
+      <textarea id="description" placeholder="Task description"></textarea>
+      <select id="priority">
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button type="submit" id="submitBtn">Add Task</button>
+      <button type="button" id="cancelBtn" class="hidden">Cancel</button>
+    </form>
+
+    <div class="filters">
+      <button class="filterBtn active" data-filter="all">All</button>
+      <button class="filterBtn" data-filter="pending">Pending</button>
+      <button class="filterBtn" data-filter="complete">Complete</button>
+    </div>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
