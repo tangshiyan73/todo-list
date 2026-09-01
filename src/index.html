@@ -10,8 +10,14 @@
   <div class="app">
     <h1>To-Do List</h1>
 
-    <!-- Add/Edit task form. Reused for both add and edit — a hidden `editingId`
-         field tracks whether we're creating a new task or updating an existing one. -->
+    <!--
+      Single form used for BOTH adding and editing a task.
+      Reusing one form (instead of a separate edit modal/form) keeps the UI
+      simple and avoids duplicating validation logic in two places.
+      The hidden #editingId field is the switch: empty = "add mode",
+      populated with a task's id = "edit mode". script.js checks this
+      field on submit to decide whether to push a new task or update one.
+    -->
     <form id="taskForm">
       <input type="hidden" id="editingId" value="">
       <input type="text" id="title" placeholder="Task title" required>
@@ -22,15 +28,19 @@
         <option value="low">Low</option>
       </select>
       <button type="submit" id="submitBtn">Add Task</button>
+      <!-- Only shown while editing, so a user can back out of an edit without saving -->
       <button type="button" id="cancelBtn" class="hidden">Cancel</button>
     </form>
 
+    <!-- data-filter values match the filter logic in script.js's render() function -->
     <div class="filters">
       <button class="filterBtn active" data-filter="all">All</button>
       <button class="filterBtn" data-filter="pending">Pending</button>
       <button class="filterBtn" data-filter="complete">Complete</button>
     </div>
 
+    <!-- Populated entirely by JS — intentionally left empty here since
+         the task list is dynamic, sourced from localStorage -->
     <ul id="taskList"></ul>
   </div>
 
