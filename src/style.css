@@ -1,0 +1,123 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f5f7;
+  margin: 0;
+  padding: 2rem;
+  color: #222;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+h1 { margin-top: 0; }
+
+#taskForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+#taskForm input,
+#taskForm textarea,
+#taskForm select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+#taskForm textarea { resize: vertical; min-height: 50px; }
+
+#taskForm button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+#taskForm button:hover { background: #1d4ed8; }
+#cancelBtn { background: #999; }
+#cancelBtn:hover { background: #777; }
+.hidden { display: none; }
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filterBtn {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filterBtn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+#taskList { list-style: none; padding: 0; margin: 0; }
+
+.task {
+  border: 1px solid #e2e2e2;
+  border-left: 4px solid #999; /* colour changes with priority — see priority classes below */
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.task.priority-high { border-left-color: #dc2626; }
+.task.priority-medium { border-left-color: #d97706; }
+.task.priority-low { border-left-color: #16a34a; }
+
+.task.completed {
+  opacity: 0.6;
+}
+
+.task.completed .task-title {
+  text-decoration: line-through;
+}
+
+.task-main { flex: 1; }
+
+.task-title { font-weight: 600; margin: 0 0 0.2rem; }
+.task-desc { font-size: 0.9rem; color: #555; margin: 0 0 0.3rem; }
+
+.task-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #888;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.task-actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.task-actions button:hover { text-decoration: underline; }
