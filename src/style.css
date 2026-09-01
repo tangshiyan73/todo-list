@@ -1,27 +1,29 @@
+/* Reset box-sizing globally so padding/border don't blow out declared widths —
+   simplest fix for the classic "why is my input wider than I set it" issue */
 * { box-sizing: border-box; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f4f5f7;
+  background: #f4f5f7; /* light grey page background so the white card stands out */
   margin: 0;
   padding: 2rem;
   color: #222;
 }
 
 .app {
-  max-width: 600px;
+  max-width: 600px; /* caps line length so the form/list stay readable on wide screens */
   margin: 0 auto;
   background: #fff;
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1); /* subtle elevation to separate card from page */
 }
 
 h1 { margin-top: 0; }
 
 #taskForm {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* stack fields vertically — simplest layout, no grid needed for this few fields */
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
@@ -35,21 +37,26 @@ h1 { margin-top: 0; }
   font-size: 0.95rem;
 }
 
-#taskForm textarea { resize: vertical; min-height: 50px; }
+#taskForm textarea { resize: vertical; min-height: 50px; } /* allow vertical resize only, keep width fixed to form */
 
 #taskForm button {
   padding: 0.5rem;
   border: none;
   border-radius: 4px;
-  background: #2563eb;
+  background: #2563eb; /* primary action color */
   color: #fff;
   cursor: pointer;
   font-size: 0.95rem;
 }
 
 #taskForm button:hover { background: #1d4ed8; }
+
+/* Cancel button gets a neutral grey so it doesn't visually compete with the primary submit action */
 #cancelBtn { background: #999; }
 #cancelBtn:hover { background: #777; }
+
+/* Toggled via JS (classList.add/remove('hidden')) rather than removing the
+   element from the DOM — keeps the element's state intact if shown again */
 .hidden { display: none; }
 
 .filters {
@@ -66,35 +73,36 @@ h1 { margin-top: 0; }
   cursor: pointer;
 }
 
+/* .active is added/removed by JS to indicate which filter is currently selected */
 .filterBtn.active { background: #2563eb; color: #fff; border-color: #2563eb; }
 
 #taskList { list-style: none; padding: 0; margin: 0; }
 
 .task {
   border: 1px solid #e2e2e2;
-  border-left: 4px solid #999; /* colour changes with priority — see priority classes below */
+  border-left: 4px solid #999; /* default/fallback colour, overridden by priority-* classes below */
   border-radius: 6px;
   padding: 0.75rem 1rem;
   margin-bottom: 0.6rem;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: space-between; /* pushes task-actions to the right edge of the card */
+  align-items: flex-start; /* aligns action buttons to the top even if description text wraps to multiple lines */
   gap: 0.75rem;
 }
 
+/* Left border colour is the at-a-glance priority indicator (requirement 3:
+   "clear and concise indication of task priority") — red/amber/green follows
+   a familiar traffic-light convention so it needs no legend */
 .task.priority-high { border-left-color: #dc2626; }
 .task.priority-medium { border-left-color: #d97706; }
 .task.priority-low { border-left-color: #16a34a; }
 
-.task.completed {
-  opacity: 0.6;
-}
+/* Completed tasks are dimmed and struck through — visually deprioritized
+   without being removed from view, per requirement 5 */
+.task.completed { opacity: 0.6; }
+.task.completed .task-title { text-decoration: line-through; }
 
-.task.completed .task-title {
-  text-decoration: line-through;
-}
-
-.task-main { flex: 1; }
+.task-main { flex: 1; } /* takes up remaining space so long descriptions don't push buttons off-card */
 
 .task-title { font-weight: 600; margin: 0 0 0.2rem; }
 .task-desc { font-size: 0.9rem; color: #555; margin: 0 0 0.3rem; }
@@ -103,18 +111,19 @@ h1 { margin-top: 0; }
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #888;
+  color: #888; /* de-emphasized: metadata is secondary to the title/description */
 }
 
 .task-actions {
   display: flex;
   gap: 0.4rem;
-  flex-shrink: 0;
+  flex-shrink: 0; /* prevents buttons from being squeezed when task-main text is long */
 }
 
 .task-actions button {
   border: none;
-  background: none;
+  background: none; /* text-only buttons keep each task row visually light —
+                        three bordered buttons per row would get noisy fast */
   cursor: pointer;
   font-size: 0.85rem;
   padding: 0.2rem 0.4rem;
